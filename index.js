@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 
-// Middleware para parsear JSON
+// Middleware para recibir JSON
 app.use(express.json());
 
 // Ruta de prueba
@@ -10,21 +10,20 @@ app.get('/', (req, res) => {
   res.send('Servidor funcionando 🚀');
 });
 
-// Rutas de autenticación (puedes mover a routes/auth.js después)
-app.post('/api/auth/login', (req, res) => {
-  const { email, password } = req.body;
+// Rutas de autenticación
+app.post('/api/auth/register', (req, res) => {
+  const { nombre, email, password } = req.body;
 
-  if (!email || !password) {
+  if (!nombre || !email || !password) {
     return res.status(400).json({ message: 'Faltan datos' });
   }
 
   res.json({
-    message: 'Usuario logueado correctamente',
-    user: { email }
+    message: 'Usuario registrado correctamente',
+    user: { nombre, email }
   });
 });
 
-// Iniciar servidor
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
